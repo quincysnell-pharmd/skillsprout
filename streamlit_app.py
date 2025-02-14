@@ -341,10 +341,6 @@ def main():
             st.session_state["current_user"] = None
             st.experimental_rerun()
 
-# Run the main function
-if __name__ == "__main__":
-    main()
-
     with st.sidebar:
         selected = option_menu(
             menu_title="Main Menu",
