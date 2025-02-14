@@ -387,3 +387,6 @@ def main():
         admin_access = st.checkbox("I am an Admin")
         if admin_access:
             st.write("Admin functions will be available here.")
+# Run the main function
+if __name__ == "__main__":
+    main()
