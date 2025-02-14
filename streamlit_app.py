@@ -1,6 +1,5 @@
 import streamlit as st
 import uuid
-from streamlit_option_menu import option_menu
 
 # -----------------------------
 # Sample data for demonstration
@@ -322,71 +321,33 @@ def show_friend_circle_page():
             st.warning("Please select a valid friend.")
 
 def main():
-    if not st.session_state["logged_in"]:
+    if not st.session_state.get("logged_in", False):
         show_login_page()
     else:
-        # Sidebar navigation
-        menu = ["Home", "My Profile", "Classes", "Friendship Circle", "Logout"]
-        choice = st.sidebar.selectbox("Navigate", menu)
+        with st.sidebar:
+            selected = option_menu(
+                menu_title="Main Menu",
+                options=["Home", "Courses", "Leaderboards", "Project Gallery", "Admin"],
+                icons=["house", "book", "trophy", "image", "gear"],
+                menu_icon="cast",
+                default_index=0,
+            )
 
-        if choice == "Home":
+        if selected == "Home":
             show_home_page()
-        elif choice == "My Profile":
-            show_profile_page()
-        elif choice == "Classes":
-            show_classes_page()
-        elif choice == "Friendship Circle":
-            show_friend_circle_page()
-        elif choice == "Logout":
+        elif selected == "Courses":
+            show_courses_page()
+        elif selected == "Leaderboards":
+            show_leaderboards_page()
+        elif selected == "Project Gallery":
+            show_gallery_page()
+        elif selected == "Admin":
+            if st.checkbox("I am an Admin"):
+                show_admin_page()
+        elif selected == "Logout":
             st.session_state["logged_in"] = False
             st.session_state["current_user"] = None
             st.experimental_rerun()
 
-    with st.sidebar:
-        selected = option_menu(
-            menu_title="Main Menu",
-            options=["Home", "Courses", "Leaderboards", "Project Gallery", "Admin"],
-            icons=["house", "book", "trophy", "image", "gear"],
-            menu_icon="cast",
-            default_index=0,
-            ortientation="horizontal",
-        )
-    
-    if selected == "Home":
-        st.title("Welcome to the Kids Learning Platform!")
-        st.write("Explore hands-on, project-based learning across various subjects.")
-    
-    elif selected == "Courses":
-        st.title("Courses")
-        difficulty_levels = ["Foundation", "Novice", "Apprentice", "Proficient", "Expert", "Mastery"]
-        age_ranges = ["4-7", "8-10", "11-13", "14+"]
-        
-        selected_age = st.multiselect("Select Age Range:", age_ranges)
-        selected_difficulty = st.multiselect("Select Difficulty Level:", difficulty_levels)
-        
-        st.write("Courses will be filtered based on selected criteria.")
-    
-    elif selected == "Leaderboards":
-        st.title("Leaderboards")
-        category = st.radio("Select Category:", ["Badges Earned", "Modules Completed", "Monthly Progress"])
-        st.write(f"Showing leaderboard for {category}.")
-        # Placeholder leaderboard data
-        leaderboard_data = {"User123": 10, "User456": 8, "User789": 6}
-        st.table(leaderboard_data)
-    
-    elif selected == "Project Gallery":
-        st.title("Project Gallery")
-        st.write("View final projects submitted by students. All content is manually approved by admins.")
-        # Placeholder for gallery display
-        st.image("https://via.placeholder.com/400", caption="Sample Project")
-    
-    elif selected == "Admin":
-        st.title("Admin Panel")
-        st.write("Only authorized admins can add, edit, or delete courses and modules.")
-        # Admin features placeholder
-        admin_access = st.checkbox("I am an Admin")
-        if admin_access:
-            st.write("Admin functions will be available here.")
-# Run the main function
 if __name__ == "__main__":
     main()
