@@ -348,6 +348,7 @@ def main():
             icons=["house", "book", "trophy", "image", "gear"],
             menu_icon="cast",
             default_index=0
+            ortientation="horizontal",
         )
     
     if selected == "Home":
@@ -385,6 +386,3 @@ def main():
         admin_access = st.checkbox("I am an Admin")
         if admin_access:
             st.write("Admin functions will be available here.")
-    
-if __name__ == "__main__":
-    main()
