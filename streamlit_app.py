@@ -345,9 +345,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-def main():
-    st.set_page_config(page_title="Kids Learning Platform", layout="wide")
-    
     with st.sidebar:
         selected = option_menu(
             menu_title="Main Menu",
