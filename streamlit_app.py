@@ -347,7 +347,7 @@ def main():
             options=["Home", "Courses", "Leaderboards", "Project Gallery", "Admin"],
             icons=["house", "book", "trophy", "image", "gear"],
             menu_icon="cast",
-            default_index=0
+            default_index=0,
             ortientation="horizontal",
         )
     
