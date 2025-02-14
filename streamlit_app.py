@@ -1,5 +1,6 @@
 import streamlit as st
 import uuid
+from streamlit_option_menu import option_menu
 
 # -----------------------------
 # Sample data for demonstration
