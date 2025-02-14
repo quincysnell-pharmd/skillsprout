@@ -321,26 +321,33 @@ def show_friend_circle_page():
             st.warning("Please select a valid friend.")
 
 def main():
-    if not st.session_state["logged_in"]:
+    if not st.session_state.get("logged_in", False):
         show_login_page()
     else:
-        # Sidebar navigation
-        menu = ["Home", "My Profile", "Classes", "Friendship Circle", "Logout"]
-        choice = st.sidebar.selectbox("Navigate", menu)
+        with st.sidebar:
+            selected = option_menu(
+                menu_title="Main Menu",
+                options=["Home", "Courses", "Leaderboards", "Project Gallery", "Admin"],
+                icons=["house", "book", "trophy", "image", "gear"],
+                menu_icon="cast",
+                default_index=0,
+            )
 
-        if choice == "Home":
+        if selected == "Home":
             show_home_page()
-        elif choice == "My Profile":
-            show_profile_page()
-        elif choice == "Classes":
-            show_classes_page()
-        elif choice == "Friendship Circle":
-            show_friend_circle_page()
-        elif choice == "Logout":
+        elif selected == "Courses":
+            show_courses_page()
+        elif selected == "Leaderboards":
+            show_leaderboards_page()
+        elif selected == "Project Gallery":
+            show_gallery_page()
+        elif selected == "Admin":
+            if st.checkbox("I am an Admin"):
+                show_admin_page()
+        elif selected == "Logout":
             st.session_state["logged_in"] = False
             st.session_state["current_user"] = None
             st.experimental_rerun()
 
-# Run the main function
 if __name__ == "__main__":
     main()
